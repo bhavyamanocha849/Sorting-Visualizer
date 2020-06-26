@@ -1,0 +1,11 @@
+.btn-primary{
+    float: right;
+    margin: 10px;
+}
+.btn-secondary{
+    margin: 10px;
+}
+
+#list{
+    color: white;
+}
