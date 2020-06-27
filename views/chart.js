@@ -33,14 +33,22 @@ function randomize() {
                 yAxes: [{
                     ticks: {
                         display: false,
-                        autoSkip: false
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        minRotation: 30,
+                        autoSkipPadding: 15,
+                        fontColor: '#ffffff',
+                        fontFamily: 'Arial'
                     }
                 }],
                 events: []
             }
         }
     });
-    console.log(myChart.options.scales.xAxes)
+    console.log(myChart.data.datasets[0])
 }
 
 async function quicksort() {
@@ -64,7 +72,7 @@ async function quicksort() {
                     yAxes: [{
                         ticks: {
                             display: false,
-                            autoSkip: false
+                            // autoSkip: false
                         }
                     }],
                     events: []
@@ -77,8 +85,34 @@ async function quicksort() {
     } else {
         arr = myChart.data.datasets[0].data;
     }
-    let high = arr.length - 1;
-    await (function quick(arr, low, high) {
+    (function quick(arr, low, high) {
+        // if (low >= high) {
+        //     return;
+        // }
+        // let mid = (low + high) / 2;
+        // let pivot = arr[mid]
+        // let left = low;
+        // let right = high;
+        // while (left <= right) {
+        //     while (arr[left] < pivot) {
+        //         left++;
+        //     }
+        //     while (arr[right] > pivot) {
+        //         right--;
+        //     }
+
+        //     if (left <= right) {
+
+        //         let temp = arr[left];
+        //         arr[left] = arr[right];
+        //         arr[right] = temp;
+
+        //         left++;
+        //         right--;
+        //     }
+        // }
+        // quick(arr, low, right);
+        // quick(arr, left, high);
         if (low < high) {
             /* pi is partitioning index, arr[pi] is  
             now at right place */
@@ -90,7 +124,7 @@ async function quicksort() {
             quick(arr, pi + 1, high);
         }
 
-    })(arr, 0, high)
+    })(arr, 0, arr.length - 1)
 
     myChart.data.datasets[0].data = arr;
     myChart.data.labels = arr;
