@@ -49,7 +49,7 @@ function randomize() {
             }
         }
     });
-    console.log(myChart.data.datasets[0])
+    console.log(myChart.data.datasets[0].backgroundColor[color.length-1])
 }
 
 async function quicksort() {
@@ -107,6 +107,15 @@ async function quicksort() {
 async function partition(arr, start, end) {
 
     let pivotValue = arr[end];
+    let start_elem_clr = myChart.data.datasets[0].backgroundColor[start]
+    let end_elem_clr = myChart.data.datasets[0].backgroundColor[end]
+    myChart.data.datasets[0].backgroundColor[start] = '#ffffff';
+    myChart.data.datasets[0].backgroundColor[end]= '#ffffff';
+    myChart.update()
+    await sleep(2000);
+    myChart.data.datasets[0].backgroundColor[start] = start_elem_clr
+    myChart.data.datasets[0].backgroundColor[end] = end_elem_clr
+    myChart.update()
     let pivotIndex = start;
     for (let i = start; i < end; i++) {
         if (arr[i] < pivotValue) {
@@ -128,28 +137,6 @@ async function swap(arr, a, b) {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-function sort(arr, low, high) {
-    let pivot = arr[high];
-    let i = (low - 1); // index of smaller element 
-    for (let j = low; j < high; j++) {
-        // If current element is smaller than the pivot 
-        if (arr[j] < pivot) {
-            i++;
-
-            // swap arr[i] and arr[j] 
-            let temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
-    }
-
-    // swap arr[i+1] and arr[high] (or pivot) 
-    let temp = arr[i + 1];
-    arr[i + 1] = arr[high];
-    arr[high] = temp;
-
-    return i + 1;
-}
 
 function customizedarray() {
     const number = parseInt(document.getElementById('num').value)
@@ -157,3 +144,5 @@ function customizedarray() {
     cus_arr.push(number)
     document.getElementById('num').value = ''
 }
+
+// module.exports = randomize();
