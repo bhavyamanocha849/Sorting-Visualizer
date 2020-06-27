@@ -6,6 +6,7 @@ let border_transparency = ', 1)'
 var myChart;
 var cus_arr = [];
 function randomize() {
+    document.getElementById('text').innerHTML = ""
     let size = Math.floor(Math.random() * 101) + 5;
     for (let index = 0; index < size; index++) {
         data[index] = Math.floor(Math.random() * 101);
@@ -21,7 +22,7 @@ function randomize() {
         data: {
             labels: data,
             datasets: [{
-                label: 'Random Number',
+                label: 'Value',
                 data: data,
                 backgroundColor: color,
                 borderColor: border_clr,
@@ -53,6 +54,8 @@ function randomize() {
 
 async function quicksort() {
 
+    document.getElementById('text').innerHTML = ""
+
     if (myChart == undefined) {
         var ctx = document.getElementById('mychart').getContext('2d');
         myChart = new Chart(ctx, {
@@ -60,7 +63,7 @@ async function quicksort() {
             data: {
                 labels: cus_arr,
                 datasets: [{
-                    label: 'Random Number',
+                    label: 'Number',
                     data: cus_arr,
                     backgroundColor: 'rgba(255,255,255,0.4)',
                     borderColor: 'rgba(255,255,255,1)',
@@ -72,7 +75,6 @@ async function quicksort() {
                     yAxes: [{
                         ticks: {
                             display: false,
-                            // autoSkip: false
                         }
                     }],
                     events: []
@@ -85,52 +87,46 @@ async function quicksort() {
     } else {
         arr = myChart.data.datasets[0].data;
     }
-    (function quick(arr, low, high) {
-        // if (low >= high) {
-        //     return;
-        // }
-        // let mid = (low + high) / 2;
-        // let pivot = arr[mid]
-        // let left = low;
-        // let right = high;
-        // while (left <= right) {
-        //     while (arr[left] < pivot) {
-        //         left++;
-        //     }
-        //     while (arr[right] > pivot) {
-        //         right--;
-        //     }
-
-        //     if (left <= right) {
-
-        //         let temp = arr[left];
-        //         arr[left] = arr[right];
-        //         arr[right] = temp;
-
-        //         left++;
-        //         right--;
-        //     }
-        // }
-        // quick(arr, low, right);
-        // quick(arr, left, high);
-        if (low < high) {
-            /* pi is partitioning index, arr[pi] is  
-            now at right place */
-            let pi = sort(arr, low, high);
-
-            // Recursively sort elements before 
-            // partition and after partition 
-            quick(arr, low, pi - 1);
-            quick(arr, pi + 1, high);
+    (async function quick(arr, low, high) {
+        if (low >= high) {
+            return;
         }
-
+        let index = await partition(arr, low, high);
+        myChart.data.datasets[0].data = arr;
+        myChart.data.labels = arr;
+        myChart.update();
+        await Promise.all([
+            quick(arr, low, index - 1),
+            quick(arr, index + 1, high)
+        ])
     })(arr, 0, arr.length - 1)
 
-    myChart.data.datasets[0].data = arr;
-    myChart.data.labels = arr;
-    myChart.update();
     cus_arr = []
     document.getElementById('list').innerText = ' '
+}
+async function partition(arr, start, end) {
+
+    let pivotValue = arr[end];
+    let pivotIndex = start;
+    for (let i = start; i < end; i++) {
+        if (arr[i] < pivotValue) {
+            await swap(arr, i, pivotIndex);
+            pivotIndex++;
+        }
+    }
+    await swap(arr, pivotIndex, end);
+
+    return pivotIndex;
+}
+async function swap(arr, a, b) {
+    await sleep(5);
+    let temp = arr[a];
+    arr[a] = arr[b];
+    arr[b] = temp;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 function sort(arr, low, high) {
     let pivot = arr[high];
