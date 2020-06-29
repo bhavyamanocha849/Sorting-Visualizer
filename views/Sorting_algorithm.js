@@ -50,7 +50,6 @@ const random = function randomize() {
             }
         }
     });
-    console.log(myChart.data);
 }
 
 function check_custom_array() {
