@@ -108,6 +108,7 @@ async function quicksort() {
     cus_arr = [];
     document.getElementById('list').innerText = ' ';
 }
+
 async function partition(arr, start, end) {
 
     let pivotValue = arr[end];
