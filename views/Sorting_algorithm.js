@@ -240,3 +240,61 @@ async function mergesort() {
         sort(arr, 0, arr.length - 1);
     })();
 }
+
+async function insertionSort() {
+    check_custom_array();
+    for (let i = 0; i < arr.length; ++i) {
+        let key = arr[i];
+        let j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        var i_idx_clr = myChart.data.datasets[0].backgroundColor[i];
+        myChart.data.datasets[0].backgroundColor[i] = 'rgb(255,255,255)';
+        var min_idx_clr = myChart.data.datasets[0].backgroundColor[j];
+        myChart.data.datasets[0].backgroundColor[j] = 'rgb(255,255,255)';
+        myChart.update();
+        await sleep(1000);
+        myChart.data.datasets[0].backgroundColor[i] = i_idx_clr;
+        myChart.data.datasets[0].backgroundColor[j] = min_idx_clr;
+        arr[j + 1] = key;
+        myChart.data.datasets[0].data = arr;
+        myChart.data.labels = arr;
+        myChart.update();
+    }
+}
+
+async function selectionSort() {
+    check_custom_array();
+    for (var i = 0; i < arr.length - 1; i++) {
+        var min_idx = i;
+        for (var j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        var i_idx_clr = myChart.data.datasets[0].backgroundColor[i];
+        myChart.data.datasets[0].backgroundColor[i] = 'rgb(255,255,255)';
+        // var border_clr = mychart.data.datasets[0].borderColor[i]
+        // mychart.data.datasets[0].borderColor[i] = 'white';
+        var min_idx_clr = myChart.data.datasets[0].backgroundColor[min_idx];
+        myChart.data.datasets[0].backgroundColor[min_idx] = 'rgb(255,255,255)';
+        
+        myChart.update();
+        await sleep(700);
+        let temp = arr[min_idx];
+        arr[min_idx] = arr[i];
+        arr[i] = temp;
+        // mychart.data.datasets[0].borderColor[i] = border_clr;
+        myChart.data.datasets[0].backgroundColor[i] = i_idx_clr;
+        myChart.data.datasets[0].backgroundColor[min_idx] = min_idx_clr;
+        myChart.update();
+        myChart.data.datasets[0].data = arr;
+        myChart.data.labels = arr;
+        // mychart.data.datasets[0].borderColor[i] = border_clr;
+        myChart.data.datasets[0].backgroundColor[i] = i_idx_clr;
+        myChart.data.datasets[0].backgroundColor[min_idx] = min_idx_clr;
+        myChart.update();
+    }
+}
