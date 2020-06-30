@@ -5,7 +5,7 @@
 ![](assets/selection_sort_demo.gif)
 
 # Merge Sort 
-![](assets/Merge_demo.gif)
+![](assets/merge_demo.gif)
 
 # Quick Sort
 
