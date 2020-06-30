@@ -1,11 +1,15 @@
 .btn-primary{
-    float: right;
     margin: 10px;
+}
+.cl{
+    float: right;
+   
 }
 .btn-secondary{
     margin: 10px;
 }
 
 #list{
-    color: white;
+    border-color: black;
+    color:rgb(243, 245, 247);
 }

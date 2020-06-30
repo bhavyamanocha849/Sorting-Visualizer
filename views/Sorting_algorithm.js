@@ -14,9 +14,11 @@ const random = function randomize() {
         color[index] = 'rgba(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + bar_transparency;
         border_clr[index] = color[index] + border_transparency;
     }
+
     if (myChart != undefined) {
         myChart.destroy();
     }
+
     var ctx = document.getElementById('mychart').getContext('2d');
     myChart = new Chart(ctx, {
         type: 'bar',
@@ -255,7 +257,7 @@ async function insertionSort() {
         var min_idx_clr = myChart.data.datasets[0].backgroundColor[j];
         myChart.data.datasets[0].backgroundColor[j] = 'rgb(255,255,255)';
         myChart.update();
-        await sleep(1000);
+        await sleep(700);
         myChart.data.datasets[0].backgroundColor[i] = i_idx_clr;
         myChart.data.datasets[0].backgroundColor[j] = min_idx_clr;
         arr[j + 1] = key;
